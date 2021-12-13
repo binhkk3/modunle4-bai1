@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 @Controller
 public class GreetingController {
     @GetMapping("/a")
@@ -36,4 +40,31 @@ public class GreetingController {
     public String showMoney(){
         return "tien";
     }
+    @PostMapping ("/tudien")
+    public String getTudien(@RequestParam String a, Model model){
+
+        Map<String ,String> map = new TreeMap<String,String>();
+        map.put("a","dung");
+        map.put("hello","xin chao");
+        map.put("dog","cho");
+        int index = -1;
+
+        String kq="null";
+        for (String key: map.keySet()
+             ) {
+            if(a.equals(key)){
+                kq = map.get(key);
+                model.addAttribute("tu",kq);
+                index = index +1;
+            }
+        }
+        if(index==-1){
+            kq= "khong co";
+            model.addAttribute("tu",kq);
+        }
+
+        return "tu";
+    }
+    @GetMapping("/tudien")
+    public String gettudien(){return "tu";}
 }
